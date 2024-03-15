@@ -5,7 +5,10 @@ import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase {
@@ -19,12 +22,20 @@ public class HomePage extends HomePageBase {
     @FindBy(xpath ="//ul[@class='srp-results srp-list clearfix']/li")
     private List<ExtendedWebElement> resultsList;
 
+    public void switchToWindow(){
+        Set<String> handles=driver.getWindowHandles();
+        Iterator it=handles.iterator();
+        String parent= (String) it.next();
+        driver.switchTo().window(parent);
+    }
+
     @Override
     public void searchForAProduct(String input) throws InterruptedException {
-        pause(4);
+        switchToWindow();
         searchBar.click();
         searchBar.type(input);
         searchButton.click();
+        pause(5);
     }
 
     @Override
