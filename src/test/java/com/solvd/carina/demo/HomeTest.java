@@ -15,4 +15,12 @@ public class HomeTest extends BaseTest {
         home.searchForAProduct(search);
         Assert.assertTrue(home.doResultsMatchSearch(search));
     }
+    @Test
+    public void carouselTitlesTest(){
+        HomePageBase home = initPage(getDriver(), HomePageBase.class);
+        MobileContextUtils contextHelper = new MobileContextUtils();
+        contextHelper.switchMobileContext(MobileContextUtils.View.WEB_CHROME);
+        home.switchToWindow();
+        Assert.assertTrue(home.areCarouselTitlesPresent());
+    }
 }
