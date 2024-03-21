@@ -16,14 +16,14 @@ public class IOSSafariTest implements IAbstractTest, IMobileUtils {
         welcome.openURL("https://www.ebay.com/");
     }
 
-    @Test
+    @Test(suiteName = "Home Test")
     public void safariTest() throws InterruptedException {
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         String search="iPad";
         home.searchForAProduct(search);
         Assert.assertTrue(home.doResultsMatchSearch(search));
     }
-    @Test
+    @Test(suiteName = "Home Test")
     public void carouselTitlesTest(){
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         MobileContextUtils contextHelper = new MobileContextUtils();
