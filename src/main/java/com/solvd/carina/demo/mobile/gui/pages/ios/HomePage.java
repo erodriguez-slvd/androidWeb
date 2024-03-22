@@ -21,18 +21,17 @@ public class HomePage extends HomePageBase{
         super(driver);
     }
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    @ExtendedFindBy( iosClassChain="**/XCUIElementTypeTextField[`label == \"Buscar en eBay\"`]")
+    @FindBy( css="input[id='kw']")
     private ExtendedWebElement searchBar;
-    @ExtendedFindBy(iosClassChain ="**/XCUIElementTypeButton[`label == \"Buscar\"`]")
+    @FindBy(css ="button[class='gh-search__submitbtn']")
     private ExtendedWebElement searchButton;
-    @ExtendedFindBy(iosClassChain ="**/XCUIElementTypeLink[`value == \"3\"`][1]/XCUIElementTypeStaticText")
+    @FindBy(css ="ul li[class='s-item s-item__pl-on-bottom'] a")
     private List<ExtendedWebElement> resultsList;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"main\"`]/XCUIElementTypeOther[6]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeLink")
+    @FindBy(css = "div[class='carousel vl-carousel carousel--slides carousel--peek'] ul[class='carousel__list'] li[class='vl-carousel__item']")
     private List<ExtendedWebElement> todayDealsPricesCarousel;
-
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"main\"`]/XCUIElementTypeOther[4]/XCUIElementTypeOther[5]")
+    @FindBy(css = "")
     private ExtendedWebElement popular;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeButton[`label == \"Ir a la diapositiva siguiente, Ofertas del día: todos con envío gratis - Carrusel\"`]")
+    @FindBy(css = "div[data-m-id='150506'] button[class='carousel__control carousel__control--next']")
     private ExtendedWebElement carouselNextButton;
 
     @Override

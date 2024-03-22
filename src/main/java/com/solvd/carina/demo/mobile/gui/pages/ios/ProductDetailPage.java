@@ -18,7 +18,7 @@ public class ProductDetailPage extends ProductDetailPageBase{
         super(driver);
     }
 
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == \"iRobot Roomba j7+ robot aspirador autovaciado - ¡certificado reacondicionado!\"`]")
+    @FindBy(css = "h1[class='x-item-title__mainTitle'] span[class='ux-textspans ux-textspans--BOLD']")
     private ExtendedWebElement productTitle;
     @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"main\"`]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText[@name == 'USD']")
     private ExtendedWebElement productPrice;
@@ -43,7 +43,7 @@ public class ProductDetailPage extends ProductDetailPageBase{
 
     @Override
     public boolean isProductTitlePresent() {
-        System.out.println(productTitle.getAttribute("name"));
+        System.out.println(productTitle.getText());
         return productTitle.isPresent();
     }
 

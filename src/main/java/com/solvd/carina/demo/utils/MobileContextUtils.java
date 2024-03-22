@@ -57,12 +57,32 @@ public class MobileContextUtils implements IDriverPool {
         ((SupportsContextSwitching) driver).context(desiredContext);
     }
 
+    public void switchIOSMobileWebContext(){
+        switchMobileSafariContext();
+    }
+
+    public void switchMobileSafariContext() {
+        WebDriver driver = getDriver();
+        DriverHelper help = new DriverHelper();
+        Set<String> contextHandles = help.performIgnoreException(((ContextAware) driver)::getContextHandles);
+        String desiredContext = "";
+        LOGGER.info("Existing contexts: ");
+        for (String cont : contextHandles) {
+            LOGGER.info(cont);
+            if (cont.contains("WEBVIEW")){
+                desiredContext=cont;
+            }
+        }
+        LOGGER.info("Switching to context : " + desiredContext);
+        ((SupportsContextSwitching) driver).context(desiredContext);
+    }
+
     public enum View {
         NATIVE("NATIVE_APP"),
         WEB_CHROME("WEBVIEW_chrome"),
         WEB_CARINA("WEBVIEW_com.solvd.carinademoapplication"),
 
-        WEB_BROWSER("WEBVIEW_");
+        WEB_SAFARI("WEBVIEW_7801.1");
 
         String viewName;
 
