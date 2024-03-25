@@ -6,6 +6,7 @@ import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
 import com.solvd.carina.demo.mobile.gui.pages.common.WelcomePageBase;
 import com.solvd.carina.demo.utils.MobileContextUtils;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import com.zebrunner.carina.core.IAbstractTest;
@@ -25,51 +26,40 @@ public class IOSSafariTest implements IAbstractTest, IMobileUtils {
         contextHelper.switchIOSMobileWebContext();
         String search="iPad";
         home.searchForAProduct(search);
-        //Assert.assertTrue(home.doResultsMatchSearch(search));
+        Assert.assertTrue(home.doResultsMatchSearch(search));
     }
     @Test(suiteName = "Home Test")
     public void carouselTitlesTest(){
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         MobileContextUtils contextHelper = new MobileContextUtils();
-        contextHelper.switchMobileContext(MobileContextUtils.View.NATIVE);
+        contextHelper.switchIOSMobileWebContext();
         Assert.assertTrue(home.areCarouselTitlesPresent());
     }
-
-
     @Test(suiteName = "Product Test")
     public void productDetailsTest(){
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         MobileContextUtils contextHelper = new MobileContextUtils();
         contextHelper.switchIOSMobileWebContext();
-        //home.switchToWindow();
         ProductDetailPageBase product =home.clickOnACarouselProduct();
-        //product.switchToWindow();
         product.isProductTitlePresent();
         product.isProductPricePresent();
-        //Assert.assertTrue(product.isBuyNowBtnPresent());
+        Assert.assertTrue(product.isBuyNowBtnPresent());
     }
     @Test(suiteName = "Product Test")
     public void itemIdTest(){
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         MobileContextUtils contextHelper = new MobileContextUtils();
-        contextHelper.switchMobileContext(MobileContextUtils.View.NATIVE);
-        home.switchToWindow();
+        contextHelper.switchIOSMobileWebContext();
         ProductDetailPageBase product =home.clickOnACarouselProduct();
-        product.switchToWindow();
         Assert.assertTrue(product.isItemIdPresent());
     }
-
-
-
 
     @Test(suiteName = "Cart Test")
     public void addProductToCartTest(){
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         MobileContextUtils contextHelper = new MobileContextUtils();
-        contextHelper.switchMobileContext(MobileContextUtils.View.NATIVE);
-        home.switchToWindow();
+        contextHelper.switchIOSMobileWebContext();
         ProductDetailPageBase product=home.clickOnACarouselProduct();
-        product.switchToWindow();
         CartPageBase cart=product.clickOnAddToCartBtn();
         Assert.assertTrue(cart.isCheckoutBtnPresent());
     }
@@ -77,10 +67,8 @@ public class IOSSafariTest implements IAbstractTest, IMobileUtils {
     public void deleteProductFromCartTest(){
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         MobileContextUtils contextHelper = new MobileContextUtils();
-        contextHelper.switchMobileContext(MobileContextUtils.View.WEB_CHROME);
-        home.switchToWindow();
+        contextHelper.switchIOSMobileWebContext();
         ProductDetailPageBase product=home.clickOnACarouselProduct();
-        product.switchToWindow();
         CartPageBase cart=product.clickOnAddToCartBtn();
         cart.clickOnDeleteBtn();
         Assert.assertTrue(cart.isConfirmationMessagePresent());
@@ -89,10 +77,8 @@ public class IOSSafariTest implements IAbstractTest, IMobileUtils {
     public void changeQuantityTest(){
         HomePageBase home = initPage(getDriver(), HomePageBase.class);
         MobileContextUtils contextHelper = new MobileContextUtils();
-        contextHelper.switchMobileContext(MobileContextUtils.View.WEB_CHROME);
-        home.switchToWindow();
+        contextHelper.switchIOSMobileWebContext();
         ProductDetailPageBase product=home.clickOnACarouselProduct();
-        product.switchToWindow();
         CartPageBase cart=product.clickOnAddToCartBtn();
         String oldPrice= cart.getProductPrice();
         cart.selectQuantityOptions();
@@ -101,4 +87,8 @@ public class IOSSafariTest implements IAbstractTest, IMobileUtils {
         Assert.assertFalse(oldPrice.equals(newPrice));
     }
 
+    @AfterTest
+    public void closeBrowser(){
+        getDriver().quit();
+    }
 }

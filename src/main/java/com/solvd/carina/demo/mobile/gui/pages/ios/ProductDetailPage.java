@@ -4,8 +4,6 @@ import com.solvd.carina.demo.mobile.gui.pages.common.CartPageBase;
 import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
-import org.codehaus.groovy.transform.SourceURIASTTransformation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -18,17 +16,17 @@ public class ProductDetailPage extends ProductDetailPageBase{
         super(driver);
     }
 
-    @FindBy(css = "h1[class='x-item-title__mainTitle'] span[class='ux-textspans ux-textspans--BOLD']")
+    @FindBy(css = "div[class='vi-title__main']  h1")
     private ExtendedWebElement productTitle;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"main\"`]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText[@name == 'USD']")
+    @FindBy(css = "div[class='x-price-primary'] ")
     private ExtendedWebElement productPrice;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == \"¡Cómpralo ahora!\"`]")
+    @FindBy(css = "a[id='vi-bin-button']")
     private ExtendedWebElement buyNowBtn;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeButton[`label == \"Agregar al carro de compras\"`]")
+    @FindBy(css = "a#vi-cart-button")
     private ExtendedWebElement addToCartBtn;
-    @ExtendedFindBy(iosClassChain = "button[id='TABS_SPR']")
-    private ExtendedWebElement shippingBtn;
-    @ExtendedFindBy(iosClassChain = "div[class='ux-layout-section__textual-display ux-layout-section__textual-display--itemId']")
+    @FindBy(css = "a[id='vi-view-in-cart-button']")
+    private ExtendedWebElement viewInCartBtn;
+    @FindBy(css = "dl[class='ux-labels-values col-12 ux-labels-values--itemNumber']")
     private ExtendedWebElement itemId;
 
     @Override
@@ -37,19 +35,23 @@ public class ProductDetailPage extends ProductDetailPageBase{
     }
     @Override
     public CartPageBase clickOnAddToCartBtn() {
-        addToCartBtn.click();
+        if (addToCartBtn.isElementPresent()){
+            addToCartBtn.click();
+            pause(3L);
+            viewInCartBtn.click();
+        }else{
+            viewInCartBtn.click();
+        }
         return initPage(getDriver(), CartPageBase.class);
     }
 
     @Override
     public boolean isProductTitlePresent() {
-        System.out.println(productTitle.getText());
         return productTitle.isPresent();
     }
 
     @Override
     public boolean isProductPricePresent() {
-        System.out.println(productPrice.getAttribute("name"));
         return  productPrice.isPresent();
     }
 

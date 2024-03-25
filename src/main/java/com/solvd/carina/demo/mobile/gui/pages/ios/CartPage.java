@@ -3,23 +3,24 @@ package com.solvd.carina.demo.mobile.gui.pages.ios;
 import com.solvd.carina.demo.mobile.gui.pages.common.CartPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase{
     public CartPage(WebDriver driver) {
         super(driver);
     }
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeButton[`label == \"Completar la transacción\"`][1]")
+    @FindBy(css = "button[data-test-id='cta-top']")
     private ExtendedWebElement checkoutBtn;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeButton[`label == \"Eliminar - iRobot Roomba j7+ Self-Emptying Vacuum Cleaning Robot - Certified Refurbished!\"`]")
+    @FindBy(css = "button[data-test-id='cart-remove-item']")
     private ExtendedWebElement deleteBtn;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"se eliminó de tu carro de compras.\"`]")
+    @FindBy(css = "h2.page-notice__title")
     private ExtendedWebElement confirmationMessage;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeTextField[`label == \"Cant.\"`]")
+    @FindBy(css = "div[class='grid-item-quantity-lower'] input[data-test-id='qty-textbox']")
     private ExtendedWebElement quantityBtn;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == \"US $329.40\"`][2]")
+    @FindBy(css = "div[class='item-price font-title-3'] span[class='text-display-span']")
     private ExtendedWebElement productPrice;
 
     @Override
@@ -41,8 +42,8 @@ public class CartPage extends CartPageBase{
     public void selectQuantityOptions() {
         String option="2";
         quantityBtn.click();
-        quantityBtn.select(option);
-        quantityBtn.getSelectedValue();
+        quantityBtn.sendKeys(Keys.DELETE);
+        quantityBtn.type(option+"\n");
     }
 
     @Override

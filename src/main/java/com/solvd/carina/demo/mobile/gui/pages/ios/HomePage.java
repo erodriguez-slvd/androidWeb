@@ -27,11 +27,11 @@ public class HomePage extends HomePageBase{
     private ExtendedWebElement searchButton;
     @FindBy(css ="ul li[class='s-item s-item__pl-on-bottom'] a")
     private List<ExtendedWebElement> resultsList;
-    @FindBy(css = "div[class='carousel vl-carousel carousel--slides carousel--peek'] ul[class='carousel__list'] li[class='vl-carousel__item']")
-    private List<ExtendedWebElement> todayDealsPricesCarousel;
+    @FindBy(css = "div[class='carousel__viewport'] li span[class='vl-item__displayPrice']")
+    private List<ExtendedWebElement> productsCarousel;
     @FindBy(css = "")
     private ExtendedWebElement popular;
-    @FindBy(css = "div[data-m-id='150506'] button[class='carousel__control carousel__control--next']")
+    @FindBy(css = "button[class='carousel__control carousel__control--next']")
     private ExtendedWebElement carouselNextButton;
 
     @Override
@@ -54,10 +54,10 @@ public class HomePage extends HomePageBase{
 
     @Override
     public boolean areCarouselTitlesPresent() {
-        swipe(popular,1);
-        for (ExtendedWebElement e:todayDealsPricesCarousel) {
-            LOGGER.info(e.getAttribute("name"));
-            if(e.getAttribute("name").isEmpty()){
+        swipe(popular,2);
+        for (ExtendedWebElement e:productsCarousel) {
+            LOGGER.info(e.getText());
+            if(e.getText().isEmpty()){
                 return false;
             }
         }
@@ -66,11 +66,7 @@ public class HomePage extends HomePageBase{
 
     @Override
     public ProductDetailPageBase clickOnACarouselProduct() {
-        swipe(popular,3);
-        //int index= (int) (Math.random()*todayDealsTitlesCarousel.size());
-        int index=1;
-        LOGGER.info(todayDealsPricesCarousel.get(index).getAttribute("name"));
-        todayDealsPricesCarousel.get(index).click();
+        productsCarousel.get(0).click();
         pause(3L);
         return initPage(getDriver(), ProductDetailPageBase.class);
     }
