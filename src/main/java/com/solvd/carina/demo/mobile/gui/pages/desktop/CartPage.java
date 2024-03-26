@@ -40,6 +40,7 @@ public class CartPage extends CartPageBase {
         quantityBtn.click();
         quantityBtn.select(option);
         quantityBtn.getSelectedValue();
+        pause(3L);
     }
     @Override
     public String getProductPrice() {
