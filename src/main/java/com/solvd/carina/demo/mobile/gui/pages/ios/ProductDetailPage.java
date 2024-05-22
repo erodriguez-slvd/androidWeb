@@ -11,35 +11,41 @@ import java.util.Iterator;
 import java.util.Set;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductDetailPageBase.class)
-public class ProductDetailPage extends ProductDetailPageBase{
+public class ProductDetailPage extends ProductDetailPageBase {
+    @FindBy(css = "div[class='vi-title__main']  h1")
+    private ExtendedWebElement productTitle;
+
+    @FindBy(css = "div[class='x-price-primary'] ")
+    private ExtendedWebElement productPrice;
+
+    @FindBy(css = "a[id='vi-bin-button']")
+    private ExtendedWebElement buyNowBtn;
+
+    @FindBy(css = "a#vi-cart-button")
+    private ExtendedWebElement addToCartBtn;
+
+    @FindBy(css = "a[id='vi-view-in-cart-button']")
+    private ExtendedWebElement viewInCartBtn;
+
+    @FindBy(css = "dl[class='ux-labels-values col-12 ux-labels-values--itemNumber']")
+    private ExtendedWebElement itemId;
+
     public ProductDetailPage(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(css = "div[class='vi-title__main']  h1")
-    private ExtendedWebElement productTitle;
-    @FindBy(css = "div[class='x-price-primary'] ")
-    private ExtendedWebElement productPrice;
-    @FindBy(css = "a[id='vi-bin-button']")
-    private ExtendedWebElement buyNowBtn;
-    @FindBy(css = "a#vi-cart-button")
-    private ExtendedWebElement addToCartBtn;
-    @FindBy(css = "a[id='vi-view-in-cart-button']")
-    private ExtendedWebElement viewInCartBtn;
-    @FindBy(css = "dl[class='ux-labels-values col-12 ux-labels-values--itemNumber']")
-    private ExtendedWebElement itemId;
 
     @Override
     public boolean isItemIdPresent() {
         return itemId.isPresent();
     }
+
     @Override
     public CartPageBase clickOnAddToCartBtn() {
-        if (addToCartBtn.isElementPresent()){
+        if (addToCartBtn.isElementPresent()) {
             addToCartBtn.click();
             pause(3L);
             viewInCartBtn.click();
-        }else{
+        } else {
             viewInCartBtn.click();
         }
         return initPage(getDriver(), CartPageBase.class);
@@ -52,24 +58,24 @@ public class ProductDetailPage extends ProductDetailPageBase{
 
     @Override
     public boolean isProductPricePresent() {
-        return  productPrice.isPresent();
+        return productPrice.isPresent();
     }
 
     @Override
     public boolean isBuyNowBtnPresent() {
-        swipe(productTitle,1);
+        swipe(productTitle, 1);
         return buyNowBtn.isPresent();
     }
 
     @Override
     public void switchToWindow() {
-        Set<String> handles=driver.getWindowHandles();
-        Iterator it=handles.iterator();
-        String parent= (String) it.next();
-        if (((String) it.next()).isEmpty()){
+        Set<String> handles = driver.getWindowHandles();
+        Iterator it = handles.iterator();
+        String parent = (String) it.next();
+        if (((String) it.next()).isEmpty()) {
             driver.switchTo().window(parent);
-        }else {
-            String child=(String) it.next();
+        } else {
+            String child = (String) it.next();
             driver.switchTo().window(child);
         }
     }
