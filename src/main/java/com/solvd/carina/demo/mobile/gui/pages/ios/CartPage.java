@@ -9,19 +9,24 @@ import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase{
+    @FindBy(css = "button[data-test-id='cta-top']")
+    private ExtendedWebElement checkoutBtn;
+
+    @FindBy(css = "button[data-test-id='cart-remove-item']")
+    private ExtendedWebElement deleteBtn;
+
+    @FindBy(css = "h2.page-notice__title")
+    private ExtendedWebElement confirmationMessage;
+
+    @FindBy(css = "div[class='grid-item-quantity-lower'] input[data-test-id='qty-textbox']")
+    private ExtendedWebElement quantityBtn;
+
+    @FindBy(css = "div[class='item-price font-title-3'] span[class='text-display-span']")
+    private ExtendedWebElement productPrice;
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy(css = "button[data-test-id='cta-top']")
-    private ExtendedWebElement checkoutBtn;
-    @FindBy(css = "button[data-test-id='cart-remove-item']")
-    private ExtendedWebElement deleteBtn;
-    @FindBy(css = "h2.page-notice__title")
-    private ExtendedWebElement confirmationMessage;
-    @FindBy(css = "div[class='grid-item-quantity-lower'] input[data-test-id='qty-textbox']")
-    private ExtendedWebElement quantityBtn;
-    @FindBy(css = "div[class='item-price font-title-3'] span[class='text-display-span']")
-    private ExtendedWebElement productPrice;
 
     @Override
     public boolean isCheckoutBtnPresent() {
