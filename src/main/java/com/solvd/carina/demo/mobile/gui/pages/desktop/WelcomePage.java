@@ -5,7 +5,7 @@ import com.solvd.carina.demo.mobile.gui.pages.common.WelcomePageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import org.openqa.selenium.WebDriver;
 
-@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass =WelcomePageBase.class)
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = WelcomePageBase.class)
 public class WelcomePage extends WelcomePageBase {
     public WelcomePage(WebDriver driver) {
         super(driver);

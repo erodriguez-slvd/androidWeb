@@ -8,40 +8,49 @@ import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase {
+    @FindBy(css = "button[data-test-id='cta-top']")
+    private ExtendedWebElement checkoutBtn;
+
+    @FindBy(css = "button[data-test-id='cart-remove-item']")
+    private ExtendedWebElement deleteBtn;
+
+    @FindBy(css = "div[id='confirmation-status']")
+    private ExtendedWebElement confirmationMessage;
+
+    @FindBy(css = "div[class='quantity'] select[data-test-id='qty-dropdown']")
+    private ExtendedWebElement quantityBtn;
+
+    @FindBy(css = "div[class='item-price font-title-3']")
+    private ExtendedWebElement productPrice;
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy(css = "button[data-test-id='cta-top']")
-    private ExtendedWebElement checkoutBtn;
-    @FindBy(css = "button[data-test-id='cart-remove-item']")
-    private ExtendedWebElement deleteBtn;
-    @FindBy(css = "div[id='confirmation-status']")
-    private ExtendedWebElement confirmationMessage;
-    @FindBy(css = "div[class='quantity'] select[data-test-id='qty-dropdown']")
-    private ExtendedWebElement quantityBtn;
-    @FindBy(css = "div[class='item-price font-title-3']")
-    private ExtendedWebElement productPrice;
 
     @Override
     public boolean isCheckoutBtnPresent() {
         return checkoutBtn.isPresent();
     }
+
     @Override
     public void clickOnDeleteBtn() {
         deleteBtn.click();
     }
+
     @Override
     public boolean isConfirmationMessagePresent() {
         return confirmationMessage.isPresent();
     }
+
     @Override
     public void selectQuantityOptions() {
-        String option="2";
+        String option = "2";
         quantityBtn.click();
         quantityBtn.select(option);
         quantityBtn.getSelectedValue();
         pause(3L);
     }
+
     @Override
     public String getProductPrice() {
         return productPrice.getText();
