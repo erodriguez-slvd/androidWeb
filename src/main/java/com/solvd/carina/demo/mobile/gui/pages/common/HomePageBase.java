@@ -8,9 +8,14 @@ public abstract class HomePageBase extends AbstractPage implements IMobileUtils 
     public HomePageBase(WebDriver driver) {
         super(driver);
     }
+
     public abstract void searchForAProduct(String input) throws InterruptedException;
+
     public abstract boolean doResultsMatchSearch(String input);
+
     public abstract boolean areCarouselTitlesPresent();
+
     public abstract ProductDetailPageBase clickOnACarouselProduct();
+
     public abstract void switchToWindow();
 }

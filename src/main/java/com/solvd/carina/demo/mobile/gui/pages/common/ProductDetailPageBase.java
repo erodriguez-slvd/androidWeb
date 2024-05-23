@@ -10,9 +10,14 @@ public abstract class ProductDetailPageBase extends AbstractPage implements IMob
     }
 
     public abstract boolean isItemIdPresent();
+
     public abstract CartPageBase clickOnAddToCartBtn();
+
     public abstract boolean isProductTitlePresent();
+
     public abstract boolean isProductPricePresent();
+
     public abstract boolean isBuyNowBtnPresent();
+
     public abstract void switchToWindow();
 }

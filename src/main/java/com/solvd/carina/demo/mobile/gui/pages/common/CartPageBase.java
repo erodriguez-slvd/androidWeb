@@ -8,9 +8,14 @@ public abstract class CartPageBase extends AbstractPage implements IMobileUtils 
     public CartPageBase(WebDriver driver) {
         super(driver);
     }
+
     public abstract boolean isCheckoutBtnPresent();
+
     public abstract void clickOnDeleteBtn();
+
     public abstract boolean isConfirmationMessagePresent();
+
     public abstract void selectQuantityOptions();
+
     public abstract String getProductPrice();
 }
